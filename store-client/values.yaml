@@ -8,7 +8,7 @@ image:
   repository: harbor.manage.cluster.wizzdi.com/workspace/store-client
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.1"
+  tag: "0.0.2"
 
 imagePullSecrets:
 - name: regcred
@@ -64,6 +64,11 @@ secrets:
     data:
       store-admin-password: ""
 
+  store-client-admin-password:
+    name: store-client-admin-password
+    data:
+      admin-password: ""
+
 env:
   - name: SPRING_DATASOURCE_URL
     value: jdbc:postgresql://store-client-postgresql:5432/flexicore
@@ -72,6 +77,11 @@ env:
       secretKeyRef:
         name: store-client-store-admin-password
         key:  store-admin-password
+  - name: ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: store-client-admin-password
+        key:  admin-password
 
 ingress:
   enabled: true
