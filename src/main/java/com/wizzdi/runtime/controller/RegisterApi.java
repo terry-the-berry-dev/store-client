@@ -41,8 +41,7 @@ public class RegisterApi {
             f -> {
               throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "username already exists");
             });
-    AppUser appUser =
-        appUserService.createAppUser(appUserCreate.setPassword(Roles.User.name()), null);
+    AppUser appUser = appUserService.createAppUser(appUserCreate.setRoles(Roles.User.name()), null);
     return appUser;
   }
 }
